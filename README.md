@@ -1,10 +1,7 @@
 ## MoCo: Momentum Contrast for Unsupervised Visual Representation Learning
 
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/11435359/71603927-0ca98d00-2b14-11ea-9fd8-10d984a2de45.png" width="300">
-</p>
-
 This is a PyTorch implementation of the [MoCo paper](https://arxiv.org/abs/1911.05722):
+
 ```
 @Article{he2019moco,
   author  = {Kaiming He and Haoqi Fan and Yuxin Wu and Saining Xie and Ross Girshick},
@@ -13,8 +10,10 @@ This is a PyTorch implementation of the [MoCo paper](https://arxiv.org/abs/1911.
   year    = {2019},
 }
 ```
+
 It also includes the implementation of the [MoCo v2 paper](https://arxiv.org/abs/2003.04297):
 ```
+
 @Article{chen2020mocov2,
   author  = {Xinlei Chen and Haoqi Fan and Ross Girshick and Kaiming He},
   title   = {Improved Baselines with Momentum Contrastive Learning},
@@ -22,7 +21,6 @@ It also includes the implementation of the [MoCo v2 paper](https://arxiv.org/abs
   year    = {2020},
 }
 ```
-
 
 ### Preparation
 
@@ -33,7 +31,6 @@ This repo aims to be minimal modifications on that code. Check the modifications
 diff main_moco.py <(curl https://raw.githubusercontent.com/pytorch/examples/master/imagenet/main.py)
 diff main_lincls.py <(curl https://raw.githubusercontent.com/pytorch/examples/master/imagenet/main.py)
 ```
-
 
 ### Unsupervised Training
 
