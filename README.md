@@ -1,10 +1,7 @@
 ## MoCo: Momentum Contrast for Unsupervised Visual Representation Learning
 
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/11435359/71603927-0ca98d00-2b14-11ea-9fd8-10d984a2de45.png" width="300">
-</p>
-
 This is a PyTorch implementation of the [MoCo paper](https://arxiv.org/abs/1911.05722):
+
 ```
 @Article{he2019moco,
   author  = {Kaiming He and Haoqi Fan and Yuxin Wu and Saining Xie and Ross Girshick},
@@ -13,8 +10,11 @@ This is a PyTorch implementation of the [MoCo paper](https://arxiv.org/abs/1911.
   year    = {2019},
 }
 ```
+
 It also includes the implementation of the [MoCo v2 paper](https://arxiv.org/abs/2003.04297):
+
 ```
+
 @Article{chen2020mocov2,
   author  = {Xinlei Chen and Haoqi Fan and Ross Girshick and Kaiming He},
   title   = {Improved Baselines with Momentum Contrastive Learning},
@@ -22,7 +22,6 @@ It also includes the implementation of the [MoCo v2 paper](https://arxiv.org/abs
   year    = {2020},
 }
 ```
-
 
 ### Preparation
 
@@ -33,7 +32,6 @@ This repo aims to be minimal modifications on that code. Check the modifications
 diff main_moco.py <(curl https://raw.githubusercontent.com/pytorch/examples/master/imagenet/main.py)
 diff main_lincls.py <(curl https://raw.githubusercontent.com/pytorch/examples/master/imagenet/main.py)
 ```
-
 
 ### Unsupervised Training
 
@@ -51,7 +49,6 @@ python main_moco.py \
 This script uses all the default hyper-parameters as described in the MoCo v1 paper. To run MoCo v2, set `--mlp --moco-t 0.2 --aug-plus --cos`.
 
 ***Note***: for 4-gpu training, we recommend following the [linear lr scaling recipe](https://arxiv.org/abs/1706.02677): `--lr 0.015 --batch-size 128` with 4 gpus. We got similar results using this setting.
-
 
 ### Linear Classification
 
@@ -85,7 +82,6 @@ Linear classification results on ImageNet using this repo with 8 NVIDIA V100 GPU
 </tbody></table>
 
 Here we run 5 trials (of pre-training and linear classification) and report mean&plusmn;std: the 5 results of MoCo v1 are {60.6, 60.6, 60.7, 60.9, 61.1}, and of MoCo v2 are {67.7, 67.6, 67.4, 67.6, 67.3}.
-
 
 ### Models
 
@@ -140,7 +136,3 @@ See [./detection](detection).
 ### License
 
 This project is under the CC-BY-NC 4.0 license. See [LICENSE](LICENSE) for details.
-
-### See Also
-* [moco.tensorflow](https://github.com/ppwwyyxx/moco.tensorflow): A TensorFlow re-implementation.
-* [Colab notebook](https://colab.research.google.com/github/facebookresearch/moco/blob/colab-notebook/colab/moco_cifar10_demo.ipynb): CIFAR demo on Colab GPU.
