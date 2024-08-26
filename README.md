@@ -14,7 +14,6 @@ This is a PyTorch implementation of the [MoCo paper](https://arxiv.org/abs/1911.
 It also includes the implementation of the [MoCo v2 paper](https://arxiv.org/abs/2003.04297):
 
 ```
-
 @Article{chen2020mocov2,
   author  = {Xinlei Chen and Haoqi Fan and Ross Girshick and Kaiming He},
   title   = {Improved Baselines with Momentum Contrastive Learning},
