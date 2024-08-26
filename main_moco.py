@@ -53,7 +53,7 @@ parser.add_argument("--dist-url", default="tcp://224.66.41.62:23456", type=str, 
 parser.add_argument("--dist-backend", default="nccl", type=str, help="distributed backend")
 parser.add_argument("--seed", default=None, type=int, help="seed for initializing training")
 parser.add_argument("--gpu", default=None, type=int, help="GPU id to use")
-parser.add_argument("--multiprocessing-distributed", action="store_true", help="Use multi-processing distributed training to launch N processes per node, which has N GPUs. This is the fastest way to use PyTorch for either single node or multi node data parallel training")
+parser.add_argument("--multiprocessing-distributed", action="store_true", help="use multi-processing distributed training to launch N processes per node, which has N GPUs. This is the fastest way to use PyTorch for either single node or multi node data parallel training")
 
 # moco specific configs:
 parser.add_argument("--moco-dim", default=128, type=int, help="feature dimension (default: 128)")
