@@ -213,9 +213,7 @@ def main_worker(gpu, ngpus_per_node, args):
         # MoCo v2's aug: similar to SimCLR https://arxiv.org/abs/2002.05709
         augmentation = [
             transforms.RandomResizedCrop(224, scale=(0.2, 1.0)),
-            transforms.RandomApply(
-                [transforms.ColorJitter(0.4, 0.4, 0.4, 0.1)], p=0.8  # not strengthened
-            ),
+            transforms.RandomApply([transforms.ColorJitter(0.4, 0.4, 0.4, 0.1)], p=0.8  # not strengthened),
             transforms.RandomGrayscale(p=0.2),
             transforms.RandomApply([moco.loader.GaussianBlur([0.1, 2.0])], p=0.5),
             transforms.RandomHorizontalFlip(),
@@ -258,9 +256,7 @@ def main_worker(gpu, ngpus_per_node, args):
         # train for one epoch
         train(train_loader, model, criterion, optimizer, epoch, args)
 
-        if not args.multiprocessing_distributed or (
-            args.multiprocessing_distributed and args.rank % ngpus_per_node == 0
-        ):
+        if not args.multiprocessing_distributed or (args.multiprocessing_distributed and args.rank % ngpus_per_node == 0):
             save_checkpoint(
                 {
                     "epoch": epoch + 1,
