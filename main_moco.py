@@ -365,7 +365,7 @@ class ProgressMeter:
 
 
 def adjust_learning_rate(optimizer, epoch, args):
-    """Decay the learning rate based on schedule"""
+    """Decays the learning rate based on schedule"""
     lr = args.lr
     if args.cos:  # cosine lr schedule
         lr *= 0.5 * (1.0 + math.cos(math.pi * epoch / args.epochs))
