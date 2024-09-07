@@ -223,7 +223,7 @@ def main_worker(gpu, ngpus_per_node, args):
 
     cudnn.benchmark = True
 
-    # Data loading code
+    # data loading code
     traindir = os.path.join(args.data, "train")
     valdir = os.path.join(args.data, "val")
     normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
@@ -425,7 +425,7 @@ def sanity_check(state_dict, pretrained_weights):
 
         assert (state_dict[k].cpu() == state_dict_pre[k_pre]).all(), "{} is changed in linear classifier training.".format(k)
 
-    print("=> sanity check passed.")
+    print("=> sanity check passed")
 
 
 class AverageMeter:
@@ -470,7 +470,7 @@ class ProgressMeter:
 
 
 def adjust_learning_rate(optimizer, epoch, args):
-    """Decay the learning rate based on schedule"""
+    """Decays the learning rate based on schedule"""
     lr = args.lr
     for milestone in args.schedule:
         lr *= 0.1 if epoch >= milestone else 1.0
