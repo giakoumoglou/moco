@@ -3,7 +3,7 @@
 This is a PyTorch implementation of the [MoCo paper](https://arxiv.org/abs/1911.05722):
 
 ```
-@Article{he2019moco,
+@article{he2019moco,
   author  = {Kaiming He and Haoqi Fan and Yuxin Wu and Saining Xie and Ross Girshick},
   title   = {Momentum Contrast for Unsupervised Visual Representation Learning},
   journal = {arXiv preprint arXiv:1911.05722},
@@ -14,7 +14,7 @@ This is a PyTorch implementation of the [MoCo paper](https://arxiv.org/abs/1911.
 It also includes the implementation of the [MoCo v2 paper](https://arxiv.org/abs/2003.04297):
 
 ```
-@Article{chen2020mocov2,
+@article{chen2020mocov2,
   author  = {Xinlei Chen and Haoqi Fan and Ross Girshick and Kaiming He},
   title   = {Improved Baselines with Momentum Contrastive Learning},
   journal = {arXiv preprint arXiv:2003.04297},
@@ -37,6 +37,7 @@ diff main_lincls.py <(curl https://raw.githubusercontent.com/pytorch/examples/ma
 This implementation only supports **multi-gpu**, **DistributedDataParallel** training, which is faster and simpler; single-gpu or DataParallel training is not supported.
 
 To do unsupervised pre-training of a ResNet-50 model on ImageNet in an 8-gpu machine, run:
+
 ```
 python main_moco.py \
   -a resnet50 \
@@ -45,6 +46,7 @@ python main_moco.py \
   --dist-url 'tcp://localhost:10001' --multiprocessing-distributed --world-size 1 --rank 0 \
   [your imagenet-folder with train and val folders]
 ```
+
 This script uses all the default hyper-parameters as described in the MoCo v1 paper. To run MoCo v2, set `--mlp --moco-t 0.2 --aug-plus --cos`.
 
 ***Note***: for 4-gpu training, we recommend following the [linear lr scaling recipe](https://arxiv.org/abs/1706.02677): `--lr 0.015 --batch-size 128` with 4 gpus. We got similar results using this setting.
@@ -52,6 +54,7 @@ This script uses all the default hyper-parameters as described in the MoCo v1 pa
 ### Linear Classification
 
 With a pre-trained model, to train a supervised linear classifier on frozen features/weights in an 8-gpu machine, run:
+
 ```
 python main_lincls.py \
   -a resnet50 \
@@ -61,26 +64,6 @@ python main_lincls.py \
   --dist-url 'tcp://localhost:10001' --multiprocessing-distributed --world-size 1 --rank 0 \
   [your imagenet-folder with train and val folders]
 ```
-
-Linear classification results on ImageNet using this repo with 8 NVIDIA V100 GPUs :
-<table><tbody>
-<!-- START TABLE -->
-<!-- TABLE HEADER -->
-<th valign="bottom"></th>
-<th valign="bottom">pre-train<br/>epochs</th>
-<th valign="bottom">pre-train<br/>time</th>
-<th valign="bottom">MoCo v1<br/>top-1 acc.</th>
-<th valign="bottom">MoCo v2<br/>top-1 acc.</th>
-<!-- TABLE BODY -->
-<tr><td align="left">ResNet-50</td>
-<td align="center">200</td>
-<td align="center">53 hours</td>
-<td align="center">60.8&plusmn;0.2</td>
-<td align="center">67.5&plusmn;0.1</td>
-</tr>
-</tbody></table>
-
-Here we run 5 trials (of pre-training and linear classification) and report mean&plusmn;std: the 5 results of MoCo v1 are {60.6, 60.6, 60.7, 60.9, 61.1}, and of MoCo v2 are {67.7, 67.6, 67.4, 67.6, 67.3}.
 
 ### Models
 
