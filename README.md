@@ -63,6 +63,10 @@ python main_lincls.py \
   [your imagenet-folder with train and val folders]
 ```
 
+### Transferring to Object Detection
+
+See [./detection](detection).
+
 ### Models
 
 Our pre-trained ResNet-50 models can be downloaded as following:
@@ -106,12 +110,6 @@ Our pre-trained ResNet-50 models can be downloaded as following:
 <td align="center"><tt>a04e12f8</tt></td>
 </tr>
 </tbody></table>
-
-
-### Transferring to Object Detection
-
-See [./detection](detection).
-
 
 ### License
 
