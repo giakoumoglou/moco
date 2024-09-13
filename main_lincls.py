@@ -34,7 +34,7 @@ parser = argparse.ArgumentParser(description="PyTorch ImageNet Training")
 parser.add_argument("data", metavar="DIR", help="path to dataset")
 parser.add_argument("-a", "--arch", metavar="ARCH", default="resnet50", choices=model_names, help="model architecture: " + " | ".join(model_names) + " (default: resnet50)")
 parser.add_argument("-j", "--workers", default=32, type=int, metavar="N", help="number of data loading workers (default: 32)")
-parser.add_argument("--epochs", default=200, type=int, metavar="N", help="number of total epochs to run")
+parser.add_argument("--epochs", default=100, type=int, metavar="N", help="number of total epochs to run")
 parser.add_argument("--start-epoch", default=0, type=int, metavar="N", help="manual epoch number (useful on restarts)")
 parser.add_argument("-b", "--batch-size", default=256, type=int, metavar="N", help="mini-batch size (default: 256), this is the total batch size of all GPUs on the current node when using Data Parallel or Distributed Data Parallel")
 parser.add_argument("--lr", "--learning-rate",  default=0.03,  type=float, metavar="LR",  help="initial learning rate",  dest="lr")
@@ -59,6 +59,7 @@ best_acc1 = 0
 
 def main():
     args = parser.parse_args()
+    args.save_dir = args.pretrained.split('checkpoint')[0]
 
     if args.seed is not None:
         random.seed(args.seed)
@@ -133,7 +134,7 @@ def main_worker(gpu, ngpus_per_node, args):
     for name, param in model.named_parameters():
         if name not in ["fc.weight", "fc.bias"]:
             param.requires_grad = False
-            
+
     # init the fc layer
     model.fc.weight.data.normal_(mean=0.0, std=0.01)
     model.fc.bias.data.zero_()
@@ -265,7 +266,7 @@ def main_worker(gpu, ngpus_per_node, args):
             ]
         ),
     )
-    
+
     val_loader = torch.utils.data.DataLoader(
         val_dataset,
         batch_size=args.batch_size,
@@ -303,6 +304,7 @@ def main_worker(gpu, ngpus_per_node, args):
                     "optimizer": optimizer.state_dict(),
                 },
                 is_best,
+                path=args.save_dir,
             )
             if epoch == args.start_epoch:
                 sanity_check(model.state_dict(), args.pretrained)
@@ -400,10 +402,12 @@ def validate(val_loader, model, criterion, args):
     return top1.avg
 
 
-def save_checkpoint(state, is_best, filename="checkpoint.pth.tar"):
-    torch.save(state, filename)
+def save_checkpoint(state, is_best, filename="checkpoint_lincls.pth.tar", path='./'):
+    os.makedirs(path, exist_ok=True)
+    full_filename = os.path.join(path, filename)
+    torch.save(state, full_filename)
     if is_best:
-        shutil.copyfile(filename, "model_best.pth.tar")
+        shutil.copyfile(full_filename, os.path.join(path, "model_best_lincls.pth.tar"))
 
 
 def sanity_check(state_dict, pretrained_weights):
@@ -490,7 +494,7 @@ def accuracy(output, target, topk=(1,)):
 
         res = []
         for k in topk:
-            correct_k = correct[:k].view(-1).float().sum(0, keepdim=True)
+            correct_k = correct[:k].reshape(-1).float().sum(0, keepdim=True)
             res.append(correct_k.mul_(100.0 / batch_size))
         return res
 
